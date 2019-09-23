@@ -14,6 +14,14 @@ class ShipmentApp extends StatefulWidget {
 }
 
 class _ShipmentAppState extends State<ShipmentApp> {
+  Map<String, bool> services = {
+    "Construction Site": true,
+    "Courier Service": false,
+    "Drayage Site": false,
+    "Dropped Trailer": false,
+    "Inside Service": false,
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,14 +48,6 @@ class _ShipmentAppState extends State<ShipmentApp> {
   }
 
   Column buildPickupServices() {
-    Map<String, bool> services = {
-      "Construction Site": true,
-      "Courier Service": false,
-      "Drayage Site": false,
-      "Dropped Trailer": false,
-      "Inside Service": false,
-    };
-
     return Column(
       children: services.keys.map((String key) {
         return CheckboxListTile(
@@ -55,15 +55,9 @@ class _ShipmentAppState extends State<ShipmentApp> {
           title: Text(key),
           activeColor: Colors.green,
           controlAffinity: ListTileControlAffinity.leading,
-          onChanged: (bool checkboxValue) {
+          onChanged: (bool val) {
             setState(() {
-              if (checkboxValue == false) {
-                checkboxValue = true;
-                debugPrint("checkboxValue = $checkboxValue");
-              } else if (checkboxValue == true) {
-                checkboxValue = false;
-                debugPrint("checkboxValue = $checkboxValue");
-              }
+              services[key] = val;
             });
           },
         );
